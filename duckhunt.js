@@ -16,6 +16,7 @@ window.onload = function() {
   // "top" and "left" CSS properties.
   // HINT: Use Math.random() * window.innerWidth    for "left"
   //       And Math.random() * window.innerHeight   for "top"
+  // DON'T FORGET: You might need to set "top" and "left" to a number of pixels -- e.g., "400px" rather than simply "400".
 
   // 4. Try making the duck move to a different location every second (what did we use to do this several lines up??)
 

@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
   const body = document.body;
   const gunShot = new Audio(`audio/gun-shot.mp3`);
   const duckHit = new Audio(`audio/duck-falling-w-drop.mp3`);
@@ -72,9 +72,10 @@ window.onload = function() {
 
     // const distanceToTravel = Math.sqrt(Math.pow(Math.abs(duckLeftPosition - left), 2) + Math.pow(Math.abs(duckTopPosition - top), 2))
 
-    const topSpeed = Math.abs(duckTopPosition - top) / window.innerHeight; const leftSpeed = Math.abs(duckLeftPosition - left) / window.innerWidth;
+    const topSpeed = Math.abs(duckTopPosition - top) / window.innerHeight;
+    const leftSpeed = Math.abs(duckLeftPosition - left) / window.innerWidth;
 
-    duck.style.transition = `top ${2/topSpeed}s, left ${2/leftSpeed}s`
+    duck.style.transition = `top ${ 2 / topSpeed}s, left ${ 2 / leftSpeed}s`
 
     // if (Math.abs(duckTopPosition - top) > 300) {
     //   duck.style.transition = `top 3s`
@@ -153,8 +154,8 @@ window.onload = function() {
     
     duck.addEventListener(`click`, (event) => {
       event.target.classList.add(`shot`);
-      score += 1100;
-      displayScore(score);
+      // score += 1100;
+      displayScore(score += 1100);
       duckHit.play();
       setTimeout(removeDuck, 1000);
     })
@@ -181,39 +182,49 @@ window.onload = function() {
 
   let startRound = new Audio(`audio/start-round.mp3`);
   
-  let startBox = document.createElement(`form`);
-  let startButton = document.createElement(`button`);
-  startBox.classList.add(`nintendoText`);
-  startButton.classList.add(`nintendoText`)
+  const startBox = document.createElement(`div`);
   body.appendChild(startBox);
-  // startBox.appendChild(startButton);
-
-  startButton.style.height = `20px`
-  startButton.style.width = `40px`
-
-
-  startBox.style.height = `100px`
+  
+  startBox.classList.add(`flex-container`);
+  startBox.classList.add(`nintendoText`);
+  startBox.style.height = `120px`
   startBox.style.width = `500px`
   startBox.style.backgroundColor = `gray`;
   startBox.style.color = `white`;
-  startBox.textContent = `Are you ready to hunt some ducks?`
+  startBox.style.display = `flexbox`;
   startBox.style.margin = `100px auto`
   startBox.style.textAlign = `center`
   startBox.style.padding = `50px`;
+  startBox.style.fontSize = `30px`;
   startBox.style.border = `solid 5px darkslategray`;
+  startBox.textContent = `Are you ready to hunt some ducks?`
 
-  // startBox.addEventListener('click', startGame());
+  const startButton = document.createElement(`button`);
+  startBox.appendChild(startButton);
+  startButton.classList.add(`nintendoText`)
+   startButton.style.height = `45px`;
+  startButton.style.width = `auto`;
+  startButton.style.backgroundColor = `lightslategray`;
+  startButton.style.border = `solid 3px darkslategray`
+  startButton.style.color = `white`;
+  startButton.style.fontSize = `25px`
+  startButton.textContent = `START`;
+  // startButton.style.display = `block`;
 
-  // function startGame() {
-  //   startRound.play();
-  //   startBox.parentElement.removeChild(startBox);
-  //   duckTracker.style.display = `block`;
+
+
+  startButton.addEventListener('click', startGame);
+
+  function startGame() {
+    startRound.play();
+    startBox.parentElement.removeChild(startBox);
+    duckTracker.style.display = `block`;
 
     for (let i = 1; i <= 5; i++) {
       createDuck();
     }
-  // }
-    // numberOfDucks = body.getElementsByClassName(`duck`).length;
+  }
+      // numberOfDucks = body.getElementsByClassName(`duck`).length;
 
     // while (numberOfDucks > 0) {
     //   setInterval(duckQuack.play(), 2000)

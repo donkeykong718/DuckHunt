@@ -20,8 +20,13 @@ html {
   src: url("kongtext/kongtext.ttf") format("truetype");
 }
 
-.tracker {
-font-family: cursive;
+.nintendoText {
+  font-family: Kongtext;
+  font-size: 30px;
+  margin: 20px 30px;
+  text-align: right;
+  display: box;
+  color: gold;
 }
 
 .duck {

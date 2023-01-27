@@ -1,18 +1,38 @@
 window.onload = function() {
   const body = document.body;
+  const gunShot = new Audio(`audio/gun-shot.mp3`);
+  const duckHit = new Audio(`audio/duck-falling-w-drop.mp3`);
+  const duckQuack = new Audio (`audio/duck-flapping.mp3`)
+  let score = 0
+  let totalScore = `00000`; 
+
+  body.addEventListener(`click`, () => { gunShot.play(); displayScore(score -= 100); });
+
+  function displayScore(score) {
+    totalScore = ``;
+    if (score < 0) {score = 0};
+    for (let i = 0; i < (5 - score.toString().length); i++) {
+        totalScore = totalScore + `0`;
+      }
+      totalScore += score.toString();
+    scoreTracker.textContent = `Score: ${totalScore}`;
+    return score;
+  }
 
   console.log(body);
 
   const duckTracker = document.createElement(`div`);
-  duckTracker.classList.add(`tracker`);
-  duckTracker.style.fontSize = `30px`
-  duckTracker.style.margin = `20px 30px `
-  duckTracker.style.textAlign = `right`
-  duckTracker.style.fontFamily = `Kongtext`;
-  duckTracker.style.color = `gold`;
-  body.appendChild(duckTracker);
-  duckTracker.textContent = `5 Ducks Remain`;
+  const scoreTracker = document.createElement(`div`);
+  scoreTracker.classList.add(`nintendoText`)
+  duckTracker.classList.add(`nintendoText`);
 
+  duckTracker.style.display = `none`;
+
+  body.appendChild(duckTracker);
+  body.appendChild(scoreTracker);
+  scoreTracker.textContent = `Score: ${totalScore}`;
+  duckTracker.textContent = `5 Ducks Remain`;
+ 
   // 1. Create a <div> with the class "duck" and add it to the body.  Do this step by step
   // ( 1. create the element
 
@@ -124,17 +144,19 @@ window.onload = function() {
       duck.classList.toggle(`flap`);
     }
 
-    const setMoveDuck = (duck) => {
-        setInterval(() => {
-          moveDuck(duck)
-        }, Math.random() * (2000-1000)+1000);
-    }
+    // const setMoveDuck = (duck) => {
     
-    setMoveDuck(duck);
+    setInterval( () => { moveDuck(duck)
+        }, Math.random() * (2000-1000)+1000);
+    
+    // setMoveDuck(duck);
     
     duck.addEventListener(`click`, (event) => {
       event.target.classList.add(`shot`);
-      setTimeout(removeDuck, 250);
+      score += 1100;
+      displayScore(score);
+      duckHit.play();
+      setTimeout(removeDuck, 1000);
     })
 
     function removeDuck() {
@@ -157,10 +179,48 @@ window.onload = function() {
   // 7. Now, let's create lots of ducks!  Use a "for" loop to create 5 ducks
   //    using our fancy new createDuck() function
 
-  for (let i = 1; i <= 5; i++)
-  {
-    createDuck();
-  }
+  let startRound = new Audio(`audio/start-round.mp3`);
+  
+  let startBox = document.createElement(`form`);
+  let startButton = document.createElement(`button`);
+  startBox.classList.add(`nintendoText`);
+  startButton.classList.add(`nintendoText`)
+  body.appendChild(startBox);
+  // startBox.appendChild(startButton);
+
+  startButton.style.height = `20px`
+  startButton.style.width = `40px`
+
+
+  startBox.style.height = `100px`
+  startBox.style.width = `500px`
+  startBox.style.backgroundColor = `gray`;
+  startBox.style.color = `white`;
+  startBox.textContent = `Are you ready to hunt some ducks?`
+  startBox.style.margin = `100px auto`
+  startBox.style.textAlign = `center`
+  startBox.style.padding = `50px`;
+  startBox.style.border = `solid 5px darkslategray`;
+
+  // startBox.addEventListener('click', startGame());
+
+  // function startGame() {
+  //   startRound.play();
+  //   startBox.parentElement.removeChild(startBox);
+  //   duckTracker.style.display = `block`;
+
+    for (let i = 1; i <= 5; i++) {
+      createDuck();
+    }
+  // }
+    // numberOfDucks = body.getElementsByClassName(`duck`).length;
+
+    // while (numberOfDucks > 0) {
+    //   setInterval(duckQuack.play(), 2000)
+    //   numberOfDucks = body.getElementsByClassName(`duck`).length;
+    // }
+
+
 
   // 8. Uh oh, our ducks are overlapping.  Modify createDuck so each time
   //     it creates a duck, it appears in a random location

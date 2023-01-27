@@ -15,6 +15,15 @@ html {
   overflow: hidden;
 }
 
+@font-face {
+  font-family: Kongtext;
+  src: url("kongtext/kongtext.ttf") format("truetype");
+}
+
+.tracker {
+font-family: cursive;
+}
+
 .duck {
   position: absolute;
   background-image: url(images/duckhunt.png);
